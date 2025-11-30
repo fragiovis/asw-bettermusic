@@ -28,6 +28,15 @@ spring:
         queryPassing: true 
     loadbalancer: 
       ribbon.enabled: false 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: recensioni
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.value.default.type: asw.bettermusic.album.api.events.AlbumCreatedEvent
+        spring.json.trusted.packages: asw.bettermusic.*
 
 server: 
   port: ${PORT:${SERVER_PORT:0}}

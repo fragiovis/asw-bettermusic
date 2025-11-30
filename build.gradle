@@ -30,6 +30,12 @@ subprojects {
     mavenCentral()
   }
 
+  dependencies {
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+  implementation 'org.springframework.kafka:spring-kafka'
+  }
+
+
   tasks.named('test') {
     useJUnitPlatform()
   }
