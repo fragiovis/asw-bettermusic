@@ -3,6 +3,16 @@
 spring: 
   application: 
     name: album
+  datasource:
+    url: jdbc:postgresql://localhost:5433/albumdb
+    username: album
+    password: album
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
   cloud:
     consul:
       host: localhost

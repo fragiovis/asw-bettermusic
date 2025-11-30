@@ -5,3 +5,35 @@ services:
     image: docker.io/hashicorp/consul:latest
     ports:
       - "8500:8500"
+  album-db:
+    image: postgres:16
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: albumdb
+      POSTGRES_USER: album
+      POSTGRES_PASSWORD: album
+  recensioni-db:
+    image: postgres:16
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_DB: recensionidb
+      POSTGRES_USER: recensioni
+      POSTGRES_PASSWORD: recensioni
+  connessioni-db:
+    image: postgres:16
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_DB: connessionidb
+      POSTGRES_USER: connessioni
+      POSTGRES_PASSWORD: connessioni
+  recensioni-seguite-db:
+    image: postgres:16
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_DB: recseguitedb
+      POSTGRES_USER: recseg
+      POSTGRES_PASSWORD: recseg

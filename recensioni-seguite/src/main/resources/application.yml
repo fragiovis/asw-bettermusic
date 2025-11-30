@@ -3,6 +3,16 @@
 spring: 
   application: 
     name: recensioni-seguite
+  datasource:
+    url: jdbc:postgresql://localhost:5436/recseguitedb
+    username: recseg
+    password: recseg
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
   cloud:
     consul:
       host: localhost

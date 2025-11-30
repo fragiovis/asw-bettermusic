@@ -3,6 +3,16 @@
 spring: 
   application: 
     name: recensioni
+  datasource:
+    url: jdbc:postgresql://localhost:5434/recensionidb
+    username: recensioni
+    password: recensioni
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
   cloud:
     consul:
       host: localhost

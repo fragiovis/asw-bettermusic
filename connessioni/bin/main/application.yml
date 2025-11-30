@@ -3,6 +3,16 @@
 spring: 
   application: 
     name: connessioni
+  datasource:
+    url: jdbc:postgresql://localhost:5435/connessionidb
+    username: connessioni
+    password: connessioni
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
   cloud:
     consul:
       host: localhost
