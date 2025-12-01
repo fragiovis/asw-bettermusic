@@ -12,11 +12,12 @@ public class RecensioniServiceImpl implements RecensioniService {
 	private RecensioniRepository recensioniRepository;
 
 	@Autowired
-	private AlbumClientPort albumClient;
+	private AlbumRepository albumRepository;
 
-	/* Crea una nuova recensione, a partire dai suoi dati. */ 
+	/* Crea una nuova recensione, a partire dai suoi dati, usando solo il DB locale. */ 
  	public Recensione createRecensione(String recensore, String titoloAlbum, String artistaAlbum, String testo, String sunto) {
-		Album album = albumClient.getAlbum(titoloAlbum, artistaAlbum);
+		Album album = albumRepository.findByTitoloAndArtista(titoloAlbum, artistaAlbum)
+			.orElseThrow(() -> new IllegalArgumentException("Album not found: " + titoloAlbum + " - " + artistaAlbum));
 		Recensione recensione = new Recensione(recensore, album.getId(),  testo, sunto); 
 		recensione = recensioniRepository.save(recensione);
 		return recensione;

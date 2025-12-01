@@ -67,4 +67,14 @@
 
 ## recensioni/src/main/java/asw/bettermusic/recensioni/domain/RecensioniServiceImpl.java
 - rimosso uso di `AlbumClientPort` in creazione; usato `AlbumRepository.findByTitoloAndArtista`
+- aggiunto controllo su album mancante con `IllegalArgumentException`
 - perché: evitare invocazioni remote nella creazione recensione; maggiore disponibilità e performance.
+- nota: gli adapter remoti restano nel codice ma non sono più iniettati né utilizzati
+
+# Test End-to-End via API Gateway
+- Avvio: `docker compose up -d consul kafka album-db recensioni-db`; avvia servizi `album` e `recensioni`
+- Creazione album (Gateway): `curl -X POST http://localhost:8080/album/album -H 'Content-Type: application/json' -d '{"titolo":"OK Computer","artista":"Radiohead","generi":["rock","alternative"]}'`
+- Verifica evento: consumer CLI su `album.created` (Bitnami) `PATH=/opt/bitnami/kafka/bin:$PATH; kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic album.created --from-beginning --max-messages 1`
+- Creazione recensione (Gateway): `curl -X POST http://localhost:8080/recensioni/recensioni -H 'Content-Type: application/json' -d '{"recensore":"fra","titoloAlbum":"OK Computer","artistaAlbum":"Radiohead","testo":"Ottimo","sunto":"Top"}'`
+- Verifica: `curl -s http://localhost:8080/recensioni/recensioni | jq`
+- Script dedicato: aggiunto `test_kafka_album_recensioni.sh` per automatizzare la sequenza
